@@ -20,5 +20,25 @@ application = Flask(__name__)
 def hello_world():
     return "Hello Python World edited!\r\n", 200, { 'Content-Type': 'text/plain' }
 
+@application.route('/test')
+def showForm():
+    return """
+          <html>
+            <head><title>Enter your name...</title></head>
+            <body>
+              <form action="/welcome" method="post">
+                <input type="text" name="my_name"><br>
+                <input type="submit" value="Sign In">
+              </form>
+            </body>
+            </html>""", 200, { 'Content-Type': 'text/plain' }
+@application.route('/welcome')
+def display():
+    username = self.request.get("my_name")
+        welcome_string = """<html><body>
+                          Hi there, {}!
+                          </body></html>""".format(username)
+        return welcome_string, 200, { 'Content-Type': 'text/plain' }
+
 if __name__ == '__main__':
     application.run(debug = True)
