@@ -21,7 +21,7 @@ def hello_world():
     return "Hello Python World edited!\r\n", 200, { 'Content-Type': 'text/plain' }
 
 @application.route('/test')
-def showForm():
+def showForm(self):
     self.response.headers["Content-Type"] = "text/html"
     self.response.write("""
           <html>
@@ -35,7 +35,7 @@ def showForm():
             </html>""")
             
 @application.route('/welcome')
-def display():
+def display(self):
     username = self.request.get("my_name")
     welcome_string = """<html><body>
                           Hi there, {}!
