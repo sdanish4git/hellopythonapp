@@ -22,7 +22,9 @@ def hello_world():
 
 @application.route('/test')
 def showForm():
-    return """ <html>
+    self.response.headers["Content-Type"] = "text/html"
+    self.response.write("""
+          <html>
             <head><title>Enter your name...</title></head>
             <body>
               <form action="/welcome" method="post">
@@ -30,14 +32,16 @@ def showForm():
                 <input type="submit" value="Sign In">
               </form>
             </body>
-            </html>""", 200, { 'Content-Type': 'text/plain' }
+            </html>""")
+            
 @application.route('/welcome')
 def display():
     username = self.request.get("my_name")
     welcome_string = """<html><body>
                           Hi there, {}!
                           </body></html>""".format(username)
-    return welcome_string, 200, { 'Content-Type': 'text/plain' }
+    self.response.headers["Content-Type"] = "text/html"
+    self.response.write(welcome_string)
 
 if __name__ == '__main__':
     application.run(debug = True)
